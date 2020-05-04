@@ -1,0 +1,132 @@
+$sidebar-width: 300px;
+$open-animation-duration: 0.4s;
+$sidebar-background-color: #ffff;
+
+@mixin controlActive {
+  color: rgba(225, 225, 225, 1);
+}
+
+@mixin linkHover {
+  background-color: rgba(0, 0, 0, 0.05); 
+  transition: all 0.2s;
+  &::before {
+    transition: all 0.2s;
+    width: 15px;
+  } 
+}
+
+@mixin itemHover($color) {
+  .side-menu__link {
+    &:hover {
+      &::before {
+        background-color: $color;
+      }
+      } 
+    }
+}
+
+.page-viewport {
+  overflow-x: hidden;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  transition: margin-left $open-animation-duration;
+  &__sidebar {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: $sidebar-width;
+    background-color: $sidebar-background-color;
+    height: 100vh;
+    position: fixed;
+    left: -$sidebar-width;
+    transition: left $open-animation-duration;
+  }
+  &__main {
+    width: 100vw;
+    min-height: 100vh;
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+
+  &_open {
+    .layout__sidebar {
+      left: 0;
+    }
+    margin-left: $sidebar-width;
+  }
+}
+.sidebar {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: $sidebar-width;
+  background-color: $sidebar-background-color;
+  height: 100vh;
+  z-index: 10;
+  &__control {
+    font-size: 2rem;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    transform: translateX(100%);
+    color: rgba(225, 225, 225, 0.8);
+    z-index: 1;
+    cursor: pointer;
+    &:focus {
+      @include controlActive;
+    }
+    &:hover {
+      @include controlActive;
+    }
+  }
+}
+.side-menu {
+  &__link {
+    color: #215921;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 2rem 1rem 2rem 30px;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    &:hover {
+      @include linkHover;
+    }
+  }
+  &__item {
+    &:nth-child(1n) {
+      @include itemHover(rgb(255, 153, 51));
+    }
+    &:nth-child(2n) {
+      @include itemHover(rgb(0, 102, 255));
+    }
+    &:nth-child(3n) {
+      @include itemHover(rgb(51, 204, 51));
+    }
+    &:nth-child(4n) {
+      @include itemHover(rgb(255, 51, 0));
+    }
+    &:nth-child(5n) {
+      @include itemHover(rgb(102, 0, 204));
+    }
+  }
+}
+.baner {
+  width: 100%;
+  height: 100vh;
+  background-image: url(https://images.hdqwalls.com/download/red-sky-morning-clouds-sunrise-6h-1920x1080.jpg);
+  background-position: right center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
